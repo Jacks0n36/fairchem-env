@@ -1,0 +1,12 @@
+name: fairchem
+channels:
+  - rdkit
+  - defaults
+  - conda-forge
+dependencies:
+  - python<3.13
+  - rdkit
+  - openbabel
+  - pip
+  - pip:
+    - fairchem-core
