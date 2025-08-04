@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get -y install git gcc g++ && \
     rm -rf /var/lib/apt/lists/*
 
-COPY mace_dependencies.yml .
+COPY fairchem.yml .
 
 RUN conda env create -f fairchem.yml && \
     conda clean --all -afy
