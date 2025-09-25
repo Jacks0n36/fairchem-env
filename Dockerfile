@@ -10,7 +10,11 @@ COPY fairchem.yml .
 RUN conda env create -f fairchem.yml && \
     conda clean --all -afy
 
-ENV PATH=/opt/conda/bin:$PATH
+RUN cd /home && \ 
+    git clone https://github.com/Jacks0n36/mlipenv && \
+    cd mlipenv
 
-# Set the default shell to use bash and activate the conda environment
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fairchem"]
+ENV PATH=/opt/conda/bin:$PATH
+ENV MLIP_SOCKET_PORT=27182
+
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fairchem", "python", "mlip_server.py"]
