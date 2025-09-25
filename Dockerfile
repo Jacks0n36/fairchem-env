@@ -11,7 +11,7 @@ RUN conda env create -f fairchem.yml && \
     conda clean --all -afy
 
 RUN cd /home && \ 
-    git clone https://github.com/Jacks0n36/mlipenv && \
+    git clone https://github.com/Jacks0n36/mlipenv
 
 ENV PATH=/opt/conda/bin:$PATH
 ENV MLIP_SOCKET_PORT=27182
