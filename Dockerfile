@@ -12,9 +12,10 @@ RUN conda env create -f fairchem.yml && \
 
 RUN cd /home && \ 
     git clone https://github.com/Jacks0n36/mlipenv && \
-    cd mlipenv
 
 ENV PATH=/opt/conda/bin:$PATH
 ENV MLIP_SOCKET_PORT=27182
+
+WORKDIR /home/mlipenv
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fairchem", "python", "mlip_server.py"]
