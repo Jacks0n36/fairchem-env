@@ -10,6 +10,7 @@ COPY fairchem.yml .
 RUN conda env create -f fairchem.yml && \
     conda clean --all -afy
 
+ARG CACHEBUST
 RUN cd /home && \ 
     git clone https://github.com/Jacks0n36/mlipenv
 
