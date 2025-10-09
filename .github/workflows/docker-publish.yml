@@ -7,11 +7,11 @@ name: Docker
 
 on:
   push:
-    branches: [ "main", "server" ]
+    branches: [ "main" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ "main", "server" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
@@ -80,6 +80,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=raw,value=latest
             type=ref,event=branch
             type=sha
 
