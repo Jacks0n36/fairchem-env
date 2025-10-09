@@ -5,9 +5,9 @@ RUN apt-get update && \
     apt-get -y install git gcc g++ && \
     rm -rf /var/lib/apt/lists/*
 
-COPY fairchem.yml .
+COPY environment.yml .
 
-RUN conda env create -f fairchem.yml && \
+RUN conda env create -f environment.yml && \
     conda clean --all -afy
 
 ARG CACHEBUST
