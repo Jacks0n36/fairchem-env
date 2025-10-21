@@ -23,11 +23,14 @@ Server Configuration
 $ MLIP_SOCKET_PORT=port
 ```
 Note: It is often convenient to use `export MLIP_SOCKET_PORT=port` so that the environment variable persists in subshell calls.
-2. With the socket port configured, we background the server using
+2. The server will also expect you to give it a path to where your fairchem models are stashed using the `MODEL_CACHE_DIR` variable. On Linux, these are stored, by default, under `$HOME/.cache/fairchem`. 
+If you don't have the models downloaded, you will need access to the repository `https://huggingface.co/facebook/UMA`. In order to get this to run, we need at least one model from the [checkpoints](https://huggingface.co/facebook/UMA/tree/main/checkpoints) folder, as well as the YAML file under the [references](https://huggingface.co/facebook/UMA/tree/main/references) folder.
+
+3. With the socket port configured and model files pointed at, we background the server using
 ```
 $ singularity run fairchem.sif &
 ```
-3. Now, the server is configured and listening for requests.
+4. Now, the server is configured and listening for requests.
 
 Runtime
 -------
@@ -62,7 +65,7 @@ Note: make sure that your configuration file parameter points to a valid path to
 
 Runtime config
 --------------
-1. There are utility scripts that should help with configuration building located under the `notebooks` folder. For an enumeration of all of the configuration parameters, read on.
+1. There are utility scripts that should help with configuration building located under `github.com/jacks0n36/mlipenv/notebooks`. For an enumeration of all of the configuration parameters, read on.
 
 
 The top-level parameters in the configuration file are:
