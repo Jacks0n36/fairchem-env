@@ -17,5 +17,6 @@ RUN cd /home && \
 ENV PATH=/opt/conda/bin:$PATH
 ENV MLIP_SOCKET_PORT=27182
 ENV CALCULATOR=fairchem
+ENV DEFAULT_MODEL_CACHE_DIR="\$HOME/.cache/fairchem"
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fairchem", "python", "/home/mlipenv/mlip_server.py"]
