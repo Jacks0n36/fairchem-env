@@ -18,24 +18,24 @@ Server Configuration
 --------------------
 
 - The main purpose of the server is to have a low-cost entry point to our MLIP during the execution of a script that makes repeated calls to that MLIP.
-1. The default port that the server listens on is `27182`. This can be changed to an arbitrary valid port, `port`, by setting
-```
-$ MLIP_SOCKET_PORT=port
-```
-Note: It is often convenient to use `export MLIP_SOCKET_PORT=port` so that the environment variable persists in subshell calls.
+1. The default port that the server listens on is `27182`. This is pre-configured, but keep this port in mind for later.
 2. The server will also expect you to give it a path to where your fairchem models are stashed using the `MODEL_CACHE_DIR` variable. On Linux, these are stored, by default, under `$HOME/.cache/fairchem`. 
 If you don't have the models downloaded, you will need access to the repository `https://huggingface.co/facebook/UMA`. In order to get this to run, we need at least one model from the [checkpoints](https://huggingface.co/facebook/UMA/tree/main/checkpoints) folder, as well as the YAML file under the [references](https://huggingface.co/facebook/UMA/tree/main/references) folder.
 
-3. With the socket port configured and model files pointed at, we background the server using
+3. With the MLIP model files pointed at, we background the server using
 ```
 $ singularity run fairchem.sif &
 ```
+Note: if you wish to communicate over a different port, `port`, you should set this here:
+```
+singularity run --env MLIP_SOCKET_PORT=`port` fairchem.sif &
+```  
 4. Now, the server is configured and listening for requests.
 
 Runtime
 -------
 1. In any process that is running on the same machine as the server is backgrounded on, ensure that `MLIP_SOCKET_PORT` is set to match that of the server's.
-    - If you are running from a process unrelated to the one running the server, you will have to set this environment variable. Recall that, with the defaults, this means that you will need to set
+    - Recall that, with the defaults, this means that you will need to set
 ```
 $ MLIP_SOCKET_PORT=27182
 ```
@@ -65,7 +65,7 @@ Note: make sure that your configuration file parameter points to a valid path to
 
 Runtime config
 --------------
-1. There are utility scripts that should help with configuration building located under `github.com/jacks0n36/mlipenv/notebooks`. For an enumeration of all of the configuration parameters, read on.
+1. There are utility scripts that should help with configuration building located under `github.com/jacks0n36/mlipenv/notebooks`. Alternatively, in that same repo, there are templated configurations and a single test system under the `test` folder. For an enumeration of all of the configuration parameters, read on.
 
 
 The top-level parameters in the configuration file are:
@@ -107,10 +107,10 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fairchem"]
 ```
 In other words, for example,
 ```
-singularity run fairchem.sif python script.py
+singularity run fairchem.sif python [your_script.py]
 ```
 expands to
 ```
-conda run --no-capture-output -n fairchem python script.py
+conda run --no-capture-output -n fairchem python [your_script.py]
 ```
 where fairchem is the name of the conda environment. Think of this container as a substitute for building the conda environment for fairchem on disk, and its usage as a substitute for running that disk-bound conda environment.
